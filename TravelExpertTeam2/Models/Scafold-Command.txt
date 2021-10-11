@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext -Connection "Data Source=localhost;Initial Catalog=TravelExperts;Integrated Security=True" -Provider Microsoft.EntityFrameworkCore.SqlServer -Context TravelExpertsContext -OutputDir Models -DataAnnotations -Force

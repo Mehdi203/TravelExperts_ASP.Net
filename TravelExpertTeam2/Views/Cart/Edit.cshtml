@@ -1,0 +1,54 @@
+﻿@model CartItem
+
+@{
+    ViewData["Title"] = " | Edit Cart";
+}
+
+<div class="container">
+
+
+    <header class="text-center container py-5 mb-4 mt-5" style="background-color: #9fafca ">
+        <div class="container">
+            <h1 class="fw-light text-dark">Edit Cart Item</h1>
+        </div>
+    </header>
+
+    <form asp-action="Edit" method="post">
+        <ul class="list-group mb-2">
+            <li class="list-group-item">@Model.Package.PkgName</li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-1">
+                        <label>Price:</label>
+                    </div>
+                    <div class="col">
+                        @Model.Package.PkgBasePrice.ToString("c")
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-row">
+                    <div class="col-1">
+                        <label asp-for="Quantity">Travellers:</label>
+                    </div>
+                    <div class="col">
+                        <select asp-for="Quantity" class="form-control">
+                            @for (int i = 1; i <= 10; i++)
+                            {
+                                <option>@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <input type="hidden" asp-for="Package.PackageId" />
+        <input type="hidden" asp-for="Package.PkgName" />
+
+        <button type="submit" class="btn text-white" style="background-color:#0e387a">Save</button>
+        <a asp-action="Index" asp-controller="Cart" class="btn text-white" style="background-color:#0e387a">Cancel</a>
+    </form>
+
+
+</div>
+

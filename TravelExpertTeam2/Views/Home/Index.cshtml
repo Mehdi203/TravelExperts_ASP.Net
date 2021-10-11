@@ -1,0 +1,112 @@
+﻿@model List<Package>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@*<div >
+        <img src="~/images/welcome.jpg" alt="welcome" width="1800" height="400" calss="mt-0px">
+    </div>*@
+
+
+@*<div class="text-center">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4"><em>Welcome</em></h1>
+
+        </div>
+    </div>*@
+<div class="mb-3">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/car-6603726_1920.jpg" alt="Los Angeles" width="1800" height="700">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>
+                        Ready to plan your next trip?
+                        Call us before you visit!
+                    </h1>
+                    <h3>Discover the Truly All-Inclusive Experience & Book with Confidence</h3>
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/zakynthos-1583127_1920.jpg" alt="Chicago" width="1800" height="700">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>
+                        Give the gift that never expire!
+                    </h1>
+                    <h3>Give the Gift of Travel</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/car-6603726_1920.jpg" alt="New York" width="1800" height="700">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>
+                        Protect Yourself While You're Away
+                    </h1>
+                    <h3>and travel with Peace of Mind!</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+
+    <header class="text-center container py-5 mb-4 mt-5" style="background-color: #9fafca">
+        <div class="container">
+            <h1 class="fw-light text-dark">Packages List</h1>
+        </div>
+    </header>
+
+
+    <div class="container mb-4">
+        <div class="row mb-4">
+            @foreach (var pkg in Model)
+            {
+
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card border-0 shadow">
+                        <img class="card-img-top" src="~/images/@pkg.PkgImage" alt=@pkg.PkgImage>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-0">@pkg.PkgName</h5>
+                            <p class="card-text">@pkg.PkgDesc</p>
+                            <a class="btn text-white" style="background-color:#0e387a" asp-controller="Home" asp-action="Details"
+                               asp-route-id="@pkg.PackageId">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </div>
+    <div>
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+
+
+
+
+
+

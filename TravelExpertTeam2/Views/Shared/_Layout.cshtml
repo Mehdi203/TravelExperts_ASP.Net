@@ -1,0 +1,197 @@
+﻿@{
+    // get cart count from session
+    var cart = new Cart(Context);
+    var count = cart.Count;
+
+    // use current controller or area to determine if tab is active
+    var current = ViewContext.RouteData.Values["area"]?.ToString() ??
+        ViewContext.RouteData.Values["controller"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TravelExpertTeam2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+@*<body style="background-color: #FDF5E6 ">*@
+<body style="background-color: #FFFFFF ">
+
+<header>
+
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background-color: #0e387a;">
+
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/TravelExperts10.png" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Agency" asp-action="Index">Locations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Agent" asp-action="Index">Agents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item @Nav.Active("Cart", current)">
+                        <a class="nav-link" asp-action="Index" asp-controller="Cart" asp-area="">
+                            <span class="fas fa-shopping-cart"></span>&nbsp;Cart
+                            <span class="badge badge-light">@cart.Count</span>
+                        </a>
+                    </li>
+
+                    <!-- Login buttons and links -->
+                    @using Microsoft.AspNetCore.Identity
+                    @inject SignInManager<User> signInManager
+
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        // signed-in user - Log Out button and username
+                        <li class="nav-item">
+                            <form method="post" asp-action="LogOut" asp-controller="Account"
+                                  asp-area="">
+                                <input type="submit" value="Log Out"
+                                       class="btn btn-outline-light" />
+                                <span class="text-light">@User.Identity.Name</span>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+                        // anonymous user - Register link and Log In button
+                        <li class="nav-item @Nav.Active("Register", action)">
+                            <a asp-action="Register" asp-controller="Account"
+                               asp-area="" class="nav-link">
+                                <span class="fas fa-edit"></span>&nbsp;Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Login" asp-controller="Account"
+                               asp-area="" class="btn btn-outline-light">Log In</a>
+                        </li>
+                    }
+
+                    @*<li class="nav-item @Nav.Active("Admin", current)">
+                            <a class="nav-link" asp-action="Index" asp-controller="Book" asp-area="Admin">
+                                <span class="fas fa-cog"></span>&nbsp;Admin
+                            </a>
+                        </li>*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+@*<div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>*@
+
+<div>
+
+    @RenderBody()
+
+</div>
+
+<footer class="border-top page-footer text-dark mt-2 " style="background-color: #9fafca; position: absolute; bottom: 0; width: 100%; height: 200px; ">
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-sm">
+                <h5>Packages</h5>
+
+
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="/home/details/1">Caribbean New Year</a>
+                    </li>
+                    <li>
+                        <a href="/home/details/2">Polynesian Paradise</a>
+                    </li>
+                    <li>
+                        <a href="/home/details/3">Asian Expedition</a>
+                    </li>
+                    <li>
+                        <a href="/home/details/4">European Vacation</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <h5>Links</h5>
+
+
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Book" asp-action="Index">Admin</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <h5>Contact</h5>
+
+
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a>101 9 Ave SW, Calgary, AB T2P 1J9</a>
+                    </li>
+                    <li>
+                        <a>info@travelexperts.com</a>
+                    </li>
+                    <li>
+                        <a>+14032667171</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br />
+
+
+
+</footer>
+
+
+
+<footer class="page-footer text-light " style="background-color: #0e387a; position: absolute; bottom: 0; width: 100%; height: 30px; ">
+
+
+
+    <div class="container text-light">
+        &copy; 2021 - TravelExpertTeam2
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@model Package
+
+@{
+    ViewData["Title"] = " | Package Details";
+}
+
+<div class="container">
+
+    <h1>Package Details</h1>
+
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr class="thead-dark">
+                <th>Title:</th>
+                <th>@Model.PkgName</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@(Model.PackageCustomers.Count > 1 ? "Customers" : "Customer")</td>
+                <td>
+                    @foreach (PackageCustomer pc in Model.PackageCustomers)
+                    {
+                        <p>
+                            <a asp-action="Details" asp-controller="Customer"
+                               asp-route-id="@pc.CustomerId"
+                               asp-route-slug="@pc.Customer.FullName.Slug()">
+                                @pc.Customer.FullName
+                            </a>
+                        </p>
+                    }
+                </td>
+            </tr>
+            <tr><td>Price:</td><td>@Model.PkgBasePrice.ToString("c")</td></tr>
+            @*        <tr><td>Booking:</td><td>@Model.Genre.Name</td></tr>*@
+        </tbody>
+    </table>
+
+    <form asp-action="Add" asp-controller="Cart" method="post">
+        <button type="submit" name="id" value="@Model.PackageId"
+                class="btn btn-primary">
+            Add To Cart
+        </button>
+    </form>
+
+</div>

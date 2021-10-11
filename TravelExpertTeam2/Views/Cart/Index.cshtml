@@ -1,0 +1,93 @@
+﻿@model CartViewModel
+
+@{
+    ViewData["Title"] = " | Cart";
+}
+
+<div class="container">
+
+
+    <header class="text-center container py-5 mb-4 mt-5" style="background-color: #9fafca ">
+        <div class="container">
+            <h1 class="fw-light text-dark">Your Cart</h1>
+        </div>
+    </header>
+
+    <form asp-action="Clear" method="post">
+        <ul class="list-group mb-4">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col">
+                        Subtotal: @Model.Subtotal.ToString("c")
+                    </div>
+                    <div class="col">
+                        <div class="float-right">
+                            <a asp-action="Checkout" class="btn text-white" style="background-color:#0e387a">Checkout</a>
+                            <button type="submit" class="btn text-white" style="background-color:#0e387a">Clear Cart</button>
+                            <a asp-action="Index" asp-controller="Home"
+                               asp-all-route-data="@Model.PackageGridRoute">Back to Packages</a>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <form asp-action="Remove" method="post">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Package Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Travellers</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CartItem item in Model.List)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Details" asp-controller="Package"
+                               asp-route-id="@item.Package.PackageId"
+                               asp-route-slug="@item.Package.PkgName.Slug()">
+                                @item.Package.PkgName
+                            </a>
+                        </td>
+                        @*<td>
+                                @foreach (var keyValuePair in item.Package.Customers) {
+                                    <p>
+                                        <a asp-action="Details" asp-controller="Customer"
+                                           asp-route-id="@keyValuePair.Key"
+                                           asp-route-slug="@keyValuePair.Value.Slug()">
+                                            @keyValuePair.Value
+                                        </a>
+                                    </p>
+                                }
+                            </td>*@
+                        <td>@item.Package.PkgDesc</td>
+                        <td>@item.Package.PkgBasePrice.ToString("c")</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Subtotal.ToString("c")</td>
+                        <td>
+                            <div class="float-right">
+                                <a asp-action="Edit" asp-controller="Cart"
+                                   asp-route-id="@item.Package.PackageId"
+                                   asp-route-slug="@item.Package.PkgName.Slug()"
+                                   class="btn text-white" style="background-color:#0e387a">Edit</a>
+                                <button type="submit" name="id" value="@item.Package.PackageId"
+                                        class="btn text-white" style="background-color:#0e387a">
+                                    Remove
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+
+</div>
+

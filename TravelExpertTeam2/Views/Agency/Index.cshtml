@@ -1,0 +1,59 @@
+﻿@*@model IEnumerable<Agency>*@
+@model List<Agency>
+
+
+
+@{
+    ViewData["Title"] = "Agency list";
+}
+
+
+<div class="container">
+    <div class="text-center">
+
+
+        <header class="text-center container py-5 mb-4 mt-5" style="background-color: #9fafca ">
+            <div class="container">
+                <h1 class="fw-light text-dark">Agency List</h1>
+            </div>
+        </header>
+
+        <div class="card-columns">
+            @foreach (var agencyitem in Model)
+            {
+                <div class="card p-3">
+                    <blockquote class="blockquote mb-0 card-body">
+
+                        <img class="card-img-top" src="~/images/@agencyitem.AgenImage" alt=@agencyitem.AgenImage>
+                        @*<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>*@
+                        @*<h3 class="blockquote-footer">
+                        <small class="text-muted">
+                        Someone famous in <cite title="Source Title">Source Title</cite>
+                        </small>
+                        </h3>*@
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Address:@agencyitem.AgncyAddress,@agencyitem.AgncyCity @agencyitem.AgncyProv @agencyitem.AgncyCountry,@agencyitem.AgncyPostal</li>
+                            <li class="list-group-item">Phone: @agencyitem.AgncyPhone</li>
+                            <li class="list-group-item">Fax: @agencyitem.AgncyFax</li>
+                            @*<li class="list-group-item">City: @agencyitem.AgncyCity</li>
+                            <li class="list-group-item">Province: @agencyitem.AgncyProv</li>
+                            <li class="list-group-item">Country: @agencyitem.AgncyCountry</li>
+                            <li class="list-group-item">Postal: @agencyitem.AgncyPostal</li>*@
+
+                        </ul>
+                        <div class="card-body">
+                            @*<a asp-controller="Author" asp-action="List" asp-all-route-data="@routes"
+                            class="text-white">The agents information in this agency</a>*@
+                            @*<a asp-action="Details" asp-controller="Author"
+                            asp-route-id="@ba.AuthorId"
+                            asp-route-slug="@ba.Author.FullName.Slug()">
+                            @ba.Author.FullName
+                            </a>*@
+                        </div>
+                    </blockquote>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
